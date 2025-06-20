@@ -7,6 +7,12 @@ export interface User {
   membershipStatus: 'active' | 'inactive' | 'pending'
   joinDate: string
   avatar?: string
+  phone?: string
+  address?: string
+  emergencyContact?: string
+  interests?: string[]
+  createdAt: string
+  updatedAt: string
 }
 
 export interface Event {
@@ -84,6 +90,8 @@ export interface RegisterData {
   password: string
   firstName: string
   lastName: string
+  phone?: string
+  address?: string
 }
 
 export interface LoginData {

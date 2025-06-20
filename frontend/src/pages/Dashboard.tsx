@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Calendar, Users, Bell, Settings, TrendingUp, Home, Star, Clock } from 'lucide-react'
+import { Calendar, Users, Bell, Settings, Home, Star, Clock } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { mockEvents, mockNews, mockStats } from '@/data/mockData'
 
@@ -101,7 +101,7 @@ export default function Dashboard() {
             >
               <h2 className="text-xl font-semibold text-secondary-900 mb-4">Latest Community News</h2>
               <div className="space-y-4">
-                {latestNews.map((article, index) => (
+                {latestNews.map((article) => (
                   <div key={article.id} className="border-b border-secondary-200 last:border-b-0 pb-4 last:pb-0">
                     <div className="flex items-start space-x-3">
                       <img 

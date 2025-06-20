@@ -40,7 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setTimeout(initAuth, 500)
   }, [])
 
-  const login = async (email: string, password: string) => {
+  const login = async (_email: string, _password: string) => {
     try {
       setLoading(true)
       

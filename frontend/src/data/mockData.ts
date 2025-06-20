@@ -3,7 +3,7 @@ export const mockEvents = [
     id: '1',
     title: 'Annual Summer BBQ',
     description: 'Join us for our annual community barbecue! Food, games, and great company await. Bring your family and friends for an afternoon of fun.',
-    date: new Date('2024-07-15'),
+    date: '2024-07-15',
     time: '2:00 PM - 6:00 PM',
     location: 'Community Center Pavilion',
     maxAttendees: 100,
@@ -13,14 +13,14 @@ export const mockEvents = [
     isPublic: true,
     rsvpRequired: true,
     createdById: 'admin1',
-    createdAt: new Date('2024-06-01'),
-    updatedAt: new Date('2024-06-15')
+    createdAt: '2024-06-01',
+    updatedAt: '2024-06-15'
   },
   {
     id: '2',
     title: 'Home Security Workshop',
     description: 'Learn essential home security tips from local law enforcement. Topics include alarm systems, surveillance, and neighborhood watch programs.',
-    date: new Date('2024-07-22'),
+    date: '2024-07-22',
     time: '7:00 PM - 8:30 PM',
     location: 'Community Center Meeting Room A',
     maxAttendees: 30,
@@ -30,14 +30,14 @@ export const mockEvents = [
     isPublic: true,
     rsvpRequired: true,
     createdById: 'admin1',
-    createdAt: new Date('2024-06-10'),
-    updatedAt: new Date('2024-06-10')
+    createdAt: '2024-06-10',
+    updatedAt: '2024-06-10'
   },
   {
     id: '3',
     title: 'Monthly Board Meeting',
     description: 'Regular monthly meeting of the community association board. All residents welcome to attend and participate in community discussions.',
-    date: new Date('2024-07-28'),
+    date: '2024-07-28',
     time: '7:00 PM - 9:00 PM',
     location: 'Community Center Conference Room',
     currentAttendees: 12,
@@ -46,14 +46,14 @@ export const mockEvents = [
     isPublic: true,
     rsvpRequired: false,
     createdById: 'admin1',
-    createdAt: new Date('2024-06-20'),
-    updatedAt: new Date('2024-06-20')
+    createdAt: '2024-06-20',
+    updatedAt: '2024-06-20'
   },
   {
     id: '4',
     title: 'Kids Movie Night',
     description: 'Family-friendly movie screening under the stars! Bring blankets and snacks. This month we\'re showing "The Incredibles 2".',
-    date: new Date('2024-08-05'),
+    date: '2024-08-05',
     time: '8:00 PM - 10:30 PM',
     location: 'Community Park Amphitheater',
     maxAttendees: 150,
@@ -63,14 +63,14 @@ export const mockEvents = [
     isPublic: true,
     rsvpRequired: true,
     createdById: 'admin2',
-    createdAt: new Date('2024-06-25'),
-    updatedAt: new Date('2024-06-25')
+    createdAt: '2024-06-25',
+    updatedAt: '2024-06-25'
   },
   {
     id: '5',
     title: 'Gardening Club Meeting',
     description: 'Monthly meeting of the community gardening club. This month: preparing your garden for fall harvest season.',
-    date: new Date('2024-08-12'),
+    date: '2024-08-12',
     time: '10:00 AM - 11:30 AM',
     location: 'Community Garden Shed',
     maxAttendees: 25,
@@ -80,8 +80,8 @@ export const mockEvents = [
     isPublic: true,
     rsvpRequired: false,
     createdById: 'user1',
-    createdAt: new Date('2024-07-01'),
-    updatedAt: new Date('2024-07-01')
+    createdAt: '2024-07-01',
+    updatedAt: '2024-07-01'
   }
 ]
 
@@ -101,8 +101,8 @@ export const mockResources = [
     rating: 4.5,
     imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop',
     isVerified: true,
-    createdAt: new Date('2024-01-15'),
-    updatedAt: new Date('2024-06-10')
+    createdAt: '2024-01-15',
+    updatedAt: '2024-06-10'
   },
   {
     id: '2',
@@ -119,8 +119,8 @@ export const mockResources = [
     rating: 4.8,
     imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=500&h=300&fit=crop',
     isVerified: true,
-    createdAt: new Date('2024-02-01'),
-    updatedAt: new Date('2024-05-20')
+    createdAt: '2024-02-01',
+    updatedAt: '2024-05-20'
   },
   {
     id: '3',
@@ -135,8 +135,8 @@ export const mockResources = [
     rating: 4.2,
     imageUrl: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=500&h=300&fit=crop',
     isVerified: true,
-    createdAt: new Date('2024-01-01'),
-    updatedAt: new Date('2024-04-15')
+    createdAt: '2024-01-01',
+    updatedAt: '2024-04-15'
   },
   {
     id: '4',
@@ -151,8 +151,8 @@ export const mockResources = [
     rating: 4.6,
     imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=300&fit=crop',
     isVerified: true,
-    createdAt: new Date('2024-03-01'),
-    updatedAt: new Date('2024-06-01')
+    createdAt: '2024-03-01',
+    updatedAt: '2024-06-01'
   },
   {
     id: '5',
@@ -168,8 +168,8 @@ export const mockResources = [
     rating: 4.9,
     imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop',
     isVerified: true,
-    createdAt: new Date('2024-04-01'),
-    updatedAt: new Date('2024-06-15')
+    createdAt: '2024-04-01',
+    updatedAt: '2024-06-15'
   }
 ]
 
@@ -193,13 +193,13 @@ Safety inspections have been completed and all equipment meets current safety st
 The playground is open daily from dawn to dusk. We hope families will enjoy this wonderful new addition to our community!`,
     summary: 'New playground equipment at Community Park is now open with modern, safe features for all ages.',
     authorId: 'admin1',
-    publishDate: new Date('2024-06-15'),
+    publishDate: '2024-06-15',
     imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&h=300&fit=crop',
     category: 'announcement' as const,
     isPublished: true,
     tags: ['playground', 'community', 'safety', 'families'],
-    createdAt: new Date('2024-06-14'),
-    updatedAt: new Date('2024-06-15')
+    createdAt: '2024-06-14',
+    updatedAt: '2024-06-15'
   },
   {
     id: '2',
@@ -222,13 +222,13 @@ Pool passes are still available at the community center office for $25 per famil
 Beat the heat and enjoy our beautiful community pool!`,
     summary: 'Community pool hours extended through August with new schedule and continued safety protocols.',
     authorId: 'admin2',
-    publishDate: new Date('2024-07-01'),
+    publishDate: '2024-07-01',
     imageUrl: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=500&h=300&fit=crop',
     category: 'announcement' as const,
     isPublished: true,
     tags: ['pool', 'summer', 'hours', 'recreation'],
-    createdAt: new Date('2024-06-30'),
-    updatedAt: new Date('2024-07-01')
+    createdAt: '2024-06-30',
+    updatedAt: '2024-07-01'
   },
   {
     id: '3',
@@ -252,13 +252,13 @@ During maintenance periods:
 We appreciate your patience as we work to maintain our community infrastructure. Contact the office at (570) 555-0100 with any questions or concerns.`,
     summary: 'July road maintenance schedule announced with dates and details for various community streets.',
     authorId: 'admin1',
-    publishDate: new Date('2024-06-25'),
+    publishDate: '2024-06-25',
     imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=500&h=300&fit=crop',
     category: 'news' as const,
     isPublished: true,
     tags: ['maintenance', 'roads', 'infrastructure', 'schedule'],
-    createdAt: new Date('2024-06-24'),
-    updatedAt: new Date('2024-06-25')
+    createdAt: '2024-06-24',
+    updatedAt: '2024-06-25'
   },
   {
     id: '4',
@@ -289,13 +289,13 @@ Plots are assigned on a first-come, first-served basis. Contact Sarah Johnson at
 Join our growing community of gardeners and enjoy fresh, homegrown vegetables all season long!`,
     summary: 'Community garden plots still available for 2024 season with various sizes and amenities included.',
     authorId: 'user1',
-    publishDate: new Date('2024-06-20'),
+    publishDate: '2024-06-20',
     imageUrl: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&h=300&fit=crop',
     category: 'community' as const,
     isPublished: true,
     tags: ['garden', 'plots', 'available', 'vegetables', 'community'],
-    createdAt: new Date('2024-06-19'),
-    updatedAt: new Date('2024-06-20')
+    createdAt: '2024-06-19',
+    updatedAt: '2024-06-20'
   }
 ]
 
@@ -306,14 +306,14 @@ export const mockUser = {
   lastName: 'User',
   role: 'member' as const,
   membershipStatus: 'active' as const,
-  joinDate: new Date('2024-01-15'),
+  joinDate: '2024-01-15',
   avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
   phone: '(570) 555-0123',
   address: '123 Oak Avenue, Saw Creek, PA 18347',
   emergencyContact: 'Jane User - (570) 555-0456',
   interests: ['gardening', 'community events', 'tennis'],
-  createdAt: new Date('2024-01-15'),
-  updatedAt: new Date('2024-06-01')
+  createdAt: '2024-01-15',
+  updatedAt: '2024-06-01'
 }
 
 export const mockStats = {
