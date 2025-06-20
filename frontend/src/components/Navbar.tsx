@@ -24,19 +24,22 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-white/90 backdrop-blur-lg border-b border-gray-100 sticky top-0 z-50 premium-shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-18">
           <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <img
-                className="h-8 w-auto"
-                src="/logo.svg"
-                alt="Saw Creek Community Association"
-              />
-              <span className="ml-2 text-xl font-display font-semibold text-primary-900">
-                Saw Creek Estates
-              </span>
+            <Link to="/" className="flex-shrink-0 flex items-center group">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center"
+              >
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-accent-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                  SC
+                </div>
+                <span className="ml-3 text-xl font-display font-bold bg-gradient-to-r from-primary-900 to-primary-700 bg-clip-text text-transparent group-hover:from-primary-700 group-hover:to-accent-600 transition-all duration-300">
+                  Saw Creek Estates
+                </span>
+              </motion.div>
             </Link>
           </div>
 
@@ -45,19 +48,31 @@ export default function Navbar() {
             {navigation.map((item) => {
               const isActive = location.pathname === item.href
               return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={cn(
-                    'flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors',
-                    isActive
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-secondary-700 hover:text-primary-600 hover:bg-primary-50'
-                  )}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <item.icon className="h-4 w-4 mr-2" />
-                  {item.name}
-                </Link>
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={cn(
+                      'relative flex items-center px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300',
+                      isActive
+                        ? 'text-white bg-gradient-to-r from-primary-600 to-primary-700 shadow-lg'
+                        : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50/50 backdrop-blur-sm'
+                    )}
+                  >
+                    <item.icon className="h-4 w-4 mr-2" />
+                    {item.name}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl -z-10"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
               )
             })}
 
