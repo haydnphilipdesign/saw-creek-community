@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion'
-import { Users, Calendar, FileText, Settings, BarChart3, Shield } from 'lucide-react'
-export default function AdminPanel() {
+import { Users, Calendar, FileText, Settings, BarChart3, Shield, TrendingUp, AlertTriangle } from 'lucide-react'
+import { mockStats, mockEvents, mockNews, mockUser } from '@/data/mockData'
 
+export default function AdminPanel() {
   const stats = [
-    { title: 'Total Members', value: '342', icon: Users, color: 'bg-blue-500' },
-    { title: 'Active Events', value: '8', icon: Calendar, color: 'bg-green-500' },
-    { title: 'Pending Approvals', value: '12', icon: FileText, color: 'bg-yellow-500' },
-    { title: 'System Status', value: 'Healthy', icon: Shield, color: 'bg-emerald-500' },
+    { title: 'Total Members', value: mockStats.totalMembers.toString(), icon: Users, color: 'bg-blue-500', change: mockStats.membershipGrowth },
+    { title: 'Active Events', value: mockStats.activeEvents.toString(), icon: Calendar, color: 'bg-green-500', change: '+2 this week' },
+    { title: 'Recent News', value: mockStats.recentNews.toString(), icon: FileText, color: 'bg-purple-500', change: '+3 this month' },
+    { title: 'System Status', value: 'Healthy', icon: Shield, color: 'bg-emerald-500', change: '99.9% uptime' },
   ]
 
   const adminSections = [
@@ -63,13 +64,21 @@ export default function AdminPanel() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="card"
             >
-              <div className="flex items-center">
-                <div className={`${stat.color} p-3 rounded-lg`}>
-                  <stat.icon className="h-6 w-6 text-white" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className={`${stat.color} p-3 rounded-lg`}>
+                    <stat.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-secondary-600">{stat.title}</p>
+                    <p className="text-2xl font-bold text-secondary-900">{stat.value}</p>
+                  </div>
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-secondary-600">{stat.title}</p>
-                  <p className="text-2xl font-bold text-secondary-900">{stat.value}</p>
+                <div className="text-right">
+                  <div className="flex items-center text-green-600">
+                    <TrendingUp className="h-4 w-4 mr-1" />
+                    <span className="text-sm font-medium">{stat.change}</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -131,8 +140,8 @@ export default function AdminPanel() {
                 <Users className="h-4 w-4 text-green-600" />
               </div>
               <div className="flex-1">
-                <p className="text-secondary-900 font-medium">New member approved</p>
-                <p className="text-secondary-600 text-sm">John Smith's membership was approved • 2 hours ago</p>
+                <p className="text-secondary-900 font-medium">New member registered</p>
+                <p className="text-secondary-600 text-sm">{mockUser.firstName} {mockUser.lastName} completed registration • 2 hours ago</p>
               </div>
             </div>
             
@@ -141,8 +150,8 @@ export default function AdminPanel() {
                 <Calendar className="h-4 w-4 text-blue-600" />
               </div>
               <div className="flex-1">
-                <p className="text-secondary-900 font-medium">Event created</p>
-                <p className="text-secondary-600 text-sm">Winter Ski Lessons event was published • 5 hours ago</p>
+                <p className="text-secondary-900 font-medium">Event updated</p>
+                <p className="text-secondary-600 text-sm">{mockEvents[0].title} registration updated • 4 hours ago</p>
               </div>
             </div>
             
@@ -151,9 +160,22 @@ export default function AdminPanel() {
                 <FileText className="h-4 w-4 text-purple-600" />
               </div>
               <div className="flex-1">
-                <p className="text-secondary-900 font-medium">Article published</p>
-                <p className="text-secondary-600 text-sm">Community newsletter was sent to all members • 1 day ago</p>
+                <p className="text-secondary-900 font-medium">News article published</p>
+                <p className="text-secondary-600 text-sm">{mockNews[0].title} was published • 1 day ago</p>
               </div>
+            </div>
+            
+            <div className="flex items-start space-x-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+              <div className="bg-yellow-100 rounded-full p-2">
+                <AlertTriangle className="h-4 w-4 text-yellow-600" />
+              </div>
+              <div className="flex-1">
+                <p className="text-secondary-900 font-medium">Pending action required</p>
+                <p className="text-secondary-600 text-sm">3 new resource submissions await approval • 2 days ago</p>
+              </div>
+              <button className="text-yellow-600 hover:text-yellow-700 text-sm font-medium">
+                Review
+              </button>
             </div>
           </div>
         </motion.div>

@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Layout from './components/Layout'
+import { DemoBanner } from './components/DemoBanner'
 import Home from './pages/Home'
 import About from './pages/About'
 import Events from './pages/Events'
@@ -19,6 +20,7 @@ function App() {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-gray-50"
     >
+      <DemoBanner />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

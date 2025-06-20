@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { User, AuthContextType, RegisterData } from '@/types'
-import { authService } from '@/services/auth'
+import { mockUser } from '@/data/mockData'
 import toast from 'react-hot-toast'
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -22,34 +22,38 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const initAuth = async () => {
+    const initAuth = () => {
       try {
-        const token = localStorage.getItem('token')
-        if (token) {
-          const userData = await authService.getCurrentUser()
-          setUser(userData)
+        const isLoggedIn = localStorage.getItem('demo-auth') === 'true'
+        if (isLoggedIn) {
+          setUser(mockUser)
         }
       } catch (error) {
         console.error('Auth initialization error:', error)
-        localStorage.removeItem('token')
+        localStorage.removeItem('demo-auth')
       } finally {
         setLoading(false)
       }
     }
 
-    initAuth()
+    // Simulate loading delay for demo
+    setTimeout(initAuth, 500)
   }, [])
 
   const login = async (email: string, password: string) => {
     try {
       setLoading(true)
-      const response = await authService.login({ email, password })
-      localStorage.setItem('token', response.token)
-      setUser(response.user)
-      toast.success('Welcome back!')
+      
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Demo login - accept any email/password combination
+      localStorage.setItem('demo-auth', 'true')
+      setUser(mockUser)
+      toast.success('Welcome back to the demo!')
     } catch (error) {
       console.error('Login error:', error)
-      toast.error('Login failed. Please check your credentials.')
+      toast.error('Login failed. Please try again.')
       throw error
     } finally {
       setLoading(false)
@@ -59,10 +63,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const register = async (userData: RegisterData) => {
     try {
       setLoading(true)
-      const response = await authService.register(userData)
-      localStorage.setItem('token', response.token)
-      setUser(response.user)
-      toast.success('Account created successfully!')
+      
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      // Demo registration - create user from form data
+      const demoUser = {
+        ...mockUser,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+        address: userData.address
+      }
+      
+      localStorage.setItem('demo-auth', 'true')
+      setUser(demoUser)
+      toast.success('Demo account created successfully!')
     } catch (error) {
       console.error('Registration error:', error)
       toast.error('Registration failed. Please try again.')
@@ -73,9 +90,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   const logout = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem('demo-auth')
     setUser(null)
-    toast.success('Logged out successfully')
+    toast.success('Logged out of demo successfully')
   }
 
   const value: AuthContextType = {

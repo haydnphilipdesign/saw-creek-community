@@ -1,54 +1,22 @@
 import { motion } from 'framer-motion'
-import { Calendar, MapPin, Users, Camera } from 'lucide-react'
+import { Calendar, MapPin, Users, Camera, Star } from 'lucide-react'
+import { mockEvents } from '@/data/mockData'
 
 export default function Events() {
-  const upcomingEvents = [
-    {
-      id: 1,
-      title: "Community Photo Contest",
-      date: "2024-02-15",
-      time: "All Day",
-      location: "Throughout Community",
-      description: "Submit your best photos of Saw Creek Estates for our annual photo contest!",
-      category: "community",
-      attendees: 25
-    },
-    {
-      id: 2,
-      title: "Winter Ski Lessons",
-      date: "2024-02-20",
-      time: "10:00 AM",
-      location: "Private Ski Area",
-      description: "Learn to ski or improve your skills with our certified instructors.",
-      category: "recreational",
-      attendees: 15
-    },
-    {
-      id: 3,
-      title: "Community Board Meeting",
-      date: "2024-02-25",
-      time: "7:00 PM",
-      location: "Community Center",
-      description: "Monthly board meeting - all residents welcome to attend.",
-      category: "community",
-      attendees: 45
-    }
-  ]
+  // Filter events into upcoming and past
+  const now = new Date()
+  const upcomingEvents = mockEvents.filter(event => new Date(event.date) >= now)
+  const pastEvents = mockEvents.filter(event => new Date(event.date) < now)
 
-  const pastEvents = [
-    {
-      id: 4,
-      title: "Holiday Winter Festival",
-      date: "2023-12-15",
-      description: "A magical evening celebrating the holiday season with the community."
-    },
-    {
-      id: 5,
-      title: "Summer Pool Party",
-      date: "2023-08-12",
-      description: "Annual summer celebration at our outdoor pool complex."
+  const getCategoryColor = (category: string) => {
+    switch(category) {
+      case 'social': return 'bg-pink-100 text-pink-800'
+      case 'educational': return 'bg-blue-100 text-blue-800'
+      case 'community': return 'bg-green-100 text-green-800'
+      case 'recreational': return 'bg-purple-100 text-purple-800'
+      default: return 'bg-gray-100 text-gray-800'
     }
-  ]
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -89,6 +57,14 @@ export default function Events() {
                 viewport={{ once: true }}
                 className="card hover:shadow-lg transition-shadow"
               >
+                {event.imageUrl && (
+                  <img 
+                    src={event.imageUrl} 
+                    alt={event.title}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                )}
+                
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold text-secondary-900 mb-2">
@@ -105,15 +81,12 @@ export default function Events() {
                       </div>
                       <div className="flex items-center">
                         <Users className="h-4 w-4 mr-2" />
-                        {event.attendees} attending
+                        {event.currentAttendees} attending
+                        {event.maxAttendees && ` / ${event.maxAttendees} max`}
                       </div>
                     </div>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    event.category === 'community' 
-                      ? 'bg-blue-100 text-blue-800'
-                      : 'bg-green-100 text-green-800'
-                  }`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(event.category)}`}>
                     {event.category}
                   </span>
                 </div>
@@ -122,9 +95,14 @@ export default function Events() {
                   {event.description}
                 </p>
                 
-                <button className="btn-primary">
-                  RSVP Now
-                </button>
+                <div className="flex gap-2">
+                  <button className="btn-primary flex-1">
+                    {event.rsvpRequired ? 'RSVP Now' : 'Mark Interested'}
+                  </button>
+                  <button className="btn-secondary">
+                    <Star className="h-4 w-4" />
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -179,34 +157,46 @@ export default function Events() {
           </div>
 
           {/* Past Events */}
-          <div>
-            <h2 className="text-3xl font-display font-bold text-secondary-900 mb-8">
-              Recent Past Events
-            </h2>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {pastEvents.map((event, index) => (
-                <motion.div
-                  key={event.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="card"
-                >
-                  <h3 className="text-lg font-semibold text-secondary-900 mb-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-sm text-secondary-500 mb-2">
-                    {new Date(event.date).toLocaleDateString()}
-                  </p>
-                  <p className="text-secondary-600">
-                    {event.description}
-                  </p>
-                </motion.div>
-              ))}
+          {pastEvents.length > 0 && (
+            <div>
+              <h2 className="text-3xl font-display font-bold text-secondary-900 mb-8">
+                Recent Past Events
+              </h2>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {pastEvents.map((event, index) => (
+                  <motion.div
+                    key={event.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="card opacity-75"
+                  >
+                    {event.imageUrl && (
+                      <img 
+                        src={event.imageUrl} 
+                        alt={event.title}
+                        className="w-full h-32 object-cover rounded-lg mb-3"
+                      />
+                    )}
+                    <h3 className="text-lg font-semibold text-secondary-900 mb-2">
+                      {event.title}
+                    </h3>
+                    <div className="flex items-center text-sm text-secondary-500 mb-2">
+                      <Calendar className="h-4 w-4 mr-2" />
+                      {new Date(event.date).toLocaleDateString()}
+                    </div>
+                    <p className="text-secondary-600 text-sm">
+                      {event.description.length > 100 
+                        ? `${event.description.substring(0, 100)}...` 
+                        : event.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
     </div>
