@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  password         String
+  firstName        String
+  lastName         String
+  role             Role     @default(MEMBER)
+  membershipStatus MembershipStatus @default(PENDING)
+  joinDate         DateTime @default(now())
+  avatar           String?
+  phone            String?
+  address          String?
+  emergencyContact String?
+  interests        String[]
+  emailVerified    Boolean  @default(false)
+  emailVerificationToken String?
+  passwordResetToken String?
+  passwordResetExpires DateTime?
+  lastLogin        DateTime?
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  createdEvents    Event[]  @relation("EventCreator")
+  rsvps            RSVP[]
+  createdArticles  NewsArticle[] @relation("ArticleAuthor")
+  createdResources CommunityResource[] @relation("ResourceCreator")
+
+  @@map("users")
+}
+
+model Event {
+  id              String      @id @default(cuid())
+  title           String
+  description     String
+  date            DateTime
+  time            String
+  location        String
+  maxAttendees    Int?
+  currentAttendees Int        @default(0)
+  imageUrl        String?
+  category        EventCategory
+  isPublic        Boolean     @default(true)
+  rsvpRequired    Boolean     @default(true)
+  isActive        Boolean     @default(true)
+  createdById     String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relations
+  createdBy       User        @relation("EventCreator", fields: [createdById], references: [id], onDelete: Cascade)
+  rsvps           RSVP[]
+
+  @@map("events")
+}
+
+model RSVP {
+  id        String     @id @default(cuid())
+  eventId   String
+  userId    String
+  status    RSVPStatus @default(ATTENDING)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // Relations
+  event     Event      @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@map("rsvps")
+}
+
+model CommunityResource {
+  id          String             @id @default(cuid())
+  name        String
+  description String
+  category    ResourceCategory
+  contactInfo Json
+  hours       String?
+  rating      Float?
+  imageUrl    String?
+  isVerified  Boolean            @default(false)
+  isActive    Boolean            @default(true)
+  createdById String
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  // Relations
+  createdBy   User               @relation("ResourceCreator", fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@map("community_resources")
+}
+
+model NewsArticle {
+  id          String          @id @default(cuid())
+  title       String
+  content     String
+  summary     String
+  authorId    String
+  publishDate DateTime
+  imageUrl    String?
+  category    ArticleCategory
+  isPublished Boolean         @default(false)
+  tags        String[]
+  views       Int             @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  // Relations
+  author      User            @relation("ArticleAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("news_articles")
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  SUSPENDED
+}
+
+enum EventCategory {
+  COMMUNITY
+  SOCIAL
+  EDUCATIONAL
+  RECREATIONAL
+}
+
+enum RSVPStatus {
+  ATTENDING
+  NOT_ATTENDING
+  MAYBE
+}
+
+enum ResourceCategory {
+  BUSINESS
+  SERVICE
+  GROUP
+  AMENITY
+}
+
+enum ArticleCategory {
+  NEWS
+  ANNOUNCEMENT
+  EVENT
+  COMMUNITY
+}
